@@ -10,6 +10,6 @@ router.post('/save', adminController.save);
 router.get('/getAdmins', adminController.optenerAdmins);
 //validamos administrador
 router.get('/validar-admin/:email/:password', adminController.varlidarAdmin);
-router.put('/actualizar', adminController.actualizarAdmin);
+router.put('/actualizar/:id', adminController.actualizarAdmin);
 
 module.exports = router;

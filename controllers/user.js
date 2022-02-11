@@ -154,10 +154,9 @@ var controller = {
                 }) 
             }
 
-            if(validate_nombre && validate_apellido && validate_email && validate_nickName && validate_password && validator_dir ){
-            
-                User.findOneAndUpdate({_id: userId}, params, {returnOriginal: false}, (err, userUpdated) => {
-                   
+            if(validate_nombre && validate_apellido && validate_email && validate_nickName && validate_password && validator_dir ){         
+                User.findOneAndUpdate({_id: userId}, {userName: params.nombre, userApellido: params.apellido, userEmail: params.email, userNick: params.nickname, userPassword: params.password,userDir: params.dir }, {new:true}, (err, userUpdated) => {
+                    console.log(userUpdated)
                     if(err){
                         return res.status(500).send({
                             status: 'Error',
@@ -175,8 +174,7 @@ var controller = {
                     return res.status(200).send({
                         status: 'success',
                         message: 'User actualizado',
-                        user: userUpdated,
-                        parametros: params
+                        user: userUpdated                        
                     })
 
                 })               

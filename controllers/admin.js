@@ -74,6 +74,7 @@ var controller = {
         })                
     },
 
+    //Este metodo hace la validacion del loggind
     varlidarAdmin: (req, res) => {
 
         var email = req.params.email;
@@ -108,10 +109,50 @@ var controller = {
     },
 
     actualizarAdmin: (req, res) => {
-        return res.status(200).send({
-            status: 'Success',
-            message: 'Soy la actualizacion de del admin'
-        })
+
+        var adminId = req.params.id;
+
+        var params = req.body;
+
+        try{
+            var validator_name = !validator.isEmpty(params.nombre);
+            var validator_email = !validator.isEmpty(params.email);
+            var validator_password = !validator.isEmpty(params.password);
+        }catch(err){
+            return res.status(404).send({
+                status: 'Error',
+                message: 'Error de validacion o faltan datos'
+            })
+        }
+
+        if(validator_name && validator_email && validator_password){
+
+            Admin.findOneAndUpdate({_id: adminId}, {adminName: params.nombre, adminEmail: params.email, adminPassword: params.password}, {new:true}, (err, adminUpdated) => {
+                if(err){
+                    return res.status(500).send({
+                        status: 'Error',
+                        message: 'Error al actualizar'
+                    })
+                }
+
+                if(!adminUpdated){
+                    return res.status(404).send({
+                        status: 'Error',
+                        message: 'No existe el articulo'
+                    });
+                }
+
+                return res.status(200).send({
+                    status: 'Success',
+                    adminUpdated
+                });
+            });
+        }else{
+            return res.status(500).send({
+                status: 'Error',
+                message: 'La validacion no es correcta'
+            })
+        }
     }
 }
 
