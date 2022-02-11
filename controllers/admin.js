@@ -115,9 +115,9 @@ var controller = {
         var params = req.body;
 
         try{
-            var validator_name = !validator.isEmpty(params.nombre);
-            var validator_email = !validator.isEmpty(params.email);
-            var validator_password = !validator.isEmpty(params.password);
+            var validator_name = !validator.isEmpty(params.adminName);
+            var validator_email = !validator.isEmpty(params.adminEmail);
+            var validator_password = !validator.isEmpty(params.adminPassword);
         }catch(err){
             return res.status(404).send({
                 status: 'Error',
@@ -126,8 +126,10 @@ var controller = {
         }
 
         if(validator_name && validator_email && validator_password){
-
-            Admin.findOneAndUpdate({_id: adminId}, {adminName: params.nombre, adminEmail: params.email, adminPassword: params.password}, {new:true}, (err, adminUpdated) => {
+            
+            Admin.findOneAndUpdate({_id: adminId}, params, {new:true}, (err, adminUpdated) => {
+                console.log(adminUpdated)
+                console.log(params)
                 if(err){
                     return res.status(500).send({
                         status: 'Error',

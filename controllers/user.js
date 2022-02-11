@@ -136,27 +136,28 @@ var controller = {
             
             var userId = req.params.id;
             var params = req.body;
-            
+            console.log(params)
             try {
                 
-                var validate_nombre = !validator.isEmpty(params.nombre);
-                var validate_apellido = !validator.isEmpty(params.apellido);
-                var validate_email = !validator.isEmpty(params.email);
-                var validate_nickName = !validator.isEmpty(params.nickname);
-                var validate_password = !validator.isEmpty(params.password);
-                var validator_dir = !validator.isEmpty(params.dir);
+                var validate_nombre = !validator.isEmpty(params.userName);
+                var validate_apellido = !validator.isEmpty(params.userApellido);
+                var validate_email = !validator.isEmpty(params.userEmail);
+                var validate_nickName = !validator.isEmpty(params.userNick);
+                var validate_password = !validator.isEmpty(params.userPassword);
+                var validator_dir = !validator.isEmpty(params.userDir);
                 
             } catch (err) {
                 
                 return res.status(500).send({
                     status: 'Error',
-                    message: 'Error de validacion'
+                    message: 'Error de validacion',
+                   
                 }) 
             }
 
-            if(validate_nombre && validate_apellido && validate_email && validate_nickName && validate_password && validator_dir ){         
-                User.findOneAndUpdate({_id: userId}, {userName: params.nombre, userApellido: params.apellido, userEmail: params.email, userNick: params.nickname, userPassword: params.password,userDir: params.dir }, {new:true}, (err, userUpdated) => {
-                    console.log(userUpdated)
+            if(validate_nombre && validate_apellido && validate_email && validate_nickName && validate_password && validator_dir ){
+            
+                User.findOneAndUpdate({_id: userId}, params, {returnOriginal: false}, (err, userUpdated) => {
                     if(err){
                         return res.status(500).send({
                             status: 'Error',
@@ -174,7 +175,7 @@ var controller = {
                     return res.status(200).send({
                         status: 'success',
                         message: 'User actualizado',
-                        user: userUpdated                        
+                        user: userUpdated
                     })
 
                 })               
