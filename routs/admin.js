@@ -11,5 +11,6 @@ router.get('/getAdmins', adminController.optenerAdmins);
 //validamos administrador
 router.get('/validar-admin/:email/:password', adminController.varlidarAdmin);
 router.put('/actualizar/:id', adminController.actualizarAdmin);
+router.delete('/delete/:id', adminController.deleteAdmin);
 
 module.exports = router;

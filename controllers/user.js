@@ -1,6 +1,7 @@
 'use strict'
 
 var validator = require('validator');
+const { findOneAndDelete } = require('../models/user');
 var User = require('../models/user')
 
 var controller = {
@@ -188,6 +189,34 @@ var controller = {
             }
         })
     },
+
+    delete: (req, res) => {
+
+        var userId = req.params.id
+
+        console.log(userId)
+
+        User.findOneAndDelete({_id: userId}, (err, userRemoved) => {
+            if(err){
+                return res.status(500).send({
+                    status: 'Error',
+                    message: 'Se ha producido un error al borrar el usuario'                      
+                })
+            }
+
+            if(!userRemoved){
+                return res.status(404).send({
+                    status: 'Error',
+                    message: 'No se ha borrado el usuario, posiblemente no exista !!!'
+                })
+            }
+            return res.status(200).send({
+                status: 'Success',
+                message: 'Usuario eliminado con exito',
+                userRemoved
+            })
+        })
+    }
 
 
 

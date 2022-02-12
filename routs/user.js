@@ -19,5 +19,6 @@ router.get('/users', userController.getUsers);
 //Optenemos los datos para loggear el objeto por url
 router.get('/validar-user/:email/:password', userController.userValidado);
 router.put('/actualizar/:id', userController.update);
+router.delete('/delete/:id', userController.delete);
 
 module.exports = router;

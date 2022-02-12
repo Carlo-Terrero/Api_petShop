@@ -155,7 +155,36 @@ var controller = {
                 message: 'La validacion no es correcta'
             })
         }
+    },
+
+    deleteAdmin: (req,res) => {
+        
+        var adminId = req.params.id;
+
+        Admin.findOneAndDelete({_id: adminId}, (err, adminRemoved) => {
+            if(err){
+                return res.status(500).send({
+                    status: 'Error',
+                    message: 'Se ha producido un error al borrar el administrador'
+                })
+            }
+
+            if(!adminRemoved){
+                return res.status(200).send({
+                    status: 'Success',
+                    message: 'No se ha borrado el administrador, posiblemente no exista !!!',                    
+                })
+            }
+
+            return res.status(200).send({
+                status: 'Success',
+                message: 'Admin eliminado con exito',
+                adminRemoved
+            })
+        })
+      
     }
+
 }
 
 module.exports = controller;
