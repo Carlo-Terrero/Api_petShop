@@ -13,7 +13,7 @@ var controllers = {
     },
 
     
-
+    // Metodo guardar/agregar articulos
     save: (req,res) => {
         
         var params = req.body;
@@ -79,6 +79,30 @@ var controllers = {
         }
     ]*/
     },
+
+    //Extraer todos los articulos
+    getArticulos: (req, res) => {
+
+        Article.find().sort('-_id').exec((err, Articles) =>{
+
+            if(err || !Articles){
+                return res.status(500).send({
+                    status: 'Error',
+                    message: 'Ha ocurrido un erro o no existe articulos'
+                })
+            }
+
+            return res.status(200).send({
+                status: 'Success',
+                Articles
+            })
+        })
+
+       /*  return res.status(200).send({
+            status: 'Success',
+            message: 'soy el metodo get articulos'
+        }) */
+    }
 
 }
 

@@ -8,5 +8,6 @@ var router = express.Router();
 router.get('/prueba', controllerArticle.prueba);
 
 router.post('/save', controllerArticle.save);
+router.get('/get-articulos', controllerArticle.getArticulos);
 
 module.exports = router;
