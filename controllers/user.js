@@ -1,7 +1,7 @@
 'use strict'
 
 var validator = require('validator');
-const { findOneAndDelete } = require('../models/user');
+//const { findOneAndDelete } = require('../models/user');
 var User = require('../models/user')
 
 var controller = {
@@ -35,7 +35,7 @@ var controller = {
             var validate_password = !validator.isEmpty(params.password);
             var validator_dir = !validator.isEmpty(params.dir);
 
-        }catch(erro){
+        }catch(err){
 
             return res.status(500).send({
                 status: 'Error',

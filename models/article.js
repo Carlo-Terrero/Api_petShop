@@ -3,9 +3,10 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var user = require('../models/user')
+//var user = require('../models/user')
 
 var articleSchema = Schema({
+    articleCategory: String,
     articleName: String,
     articleDescripcion: String,
     articleImg: String,
@@ -13,7 +14,8 @@ var articleSchema = Schema({
     precio: Number,
     comment: [ 
         {
-        nombre: user.userNick,
+        id: String,
+        nombeUser: String,
         content: String
         }
     ]
