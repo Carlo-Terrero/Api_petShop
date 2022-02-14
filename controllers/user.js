@@ -115,7 +115,7 @@ var controller = {
             })
         }
 
-        User.find({ userEmail: validEmail, userPassword: validPass}, (err, user) =>{
+        User.find({ userEmail: validEmail, userPassword: validPass}, (err, user) => {
             if(err || !user || user == false){
                 return res.status(404).send({
                     status: 'error',
